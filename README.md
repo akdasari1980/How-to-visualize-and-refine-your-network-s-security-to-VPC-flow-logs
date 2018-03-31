@@ -1,1 +1,4 @@
-# How-to-visualize-your-network-s-security-to-VPC-flow-logs
+# How to visualize your network's security to VPC flow logs
+## ECV Bootcamp
+
+Many organizations begin their cloud journey to AWS by moving a few applications to demonstrate the power and flexibility of AWS. This initial application architecture includes building security groups that control the network ports, protocols, and IP addresses that govern access and traffic to their AWS Virtual Private Cloud (**VPC**). When the architecture process is complete and an application is fully functional, some organizations forget to revisit their security groups to optimize rules and help ensure the appropriate level of governance and compliance. Not optimizing security groups can create less-than-optimal security, with ports open that may not be needed or source IP ranges set that are broader than required.
