@@ -234,6 +234,8 @@ https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
 1.72. 	Choose **Start Streaming**.
 
+Data is now flowing to your Amazon ES cluster, but be patient because it can take up to 30 minutes for the data to begin appearing in your Amazon ES cluster.
+
 #### Using the SGDashboard to analyze VPC network traffic
 
 1.73. 	In the AWS Management Console, click **Elasticsearch** Service under Analytics.
