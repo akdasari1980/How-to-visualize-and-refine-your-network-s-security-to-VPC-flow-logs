@@ -175,7 +175,7 @@ https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 		//Enter Information as below
 	ACCESS_KEY
 	Secret_ACCESS_Key
-	Region : us-west-2
+	Region : us-east-1
 	Format : json
 
 1.51. 	Deploy Lambda Functions and Create buckets
