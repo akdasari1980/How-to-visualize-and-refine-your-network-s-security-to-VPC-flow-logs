@@ -67,7 +67,7 @@ https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
 1.19. 	Choose **All** from the **Filter** drop-down list.
 
-1.20. 	Choose **flowlogsRole** from the **Role** drop-down list (you created this role in steps 3 and 4 in this procedure).
+1.20. 	Choose **flowlogsRole** from the **Role** drop-down list (you created this role in previous steps in this procedure).
 
 1.21. 	Choose **Flowlogs** from the **Destination Log Group** drop-down list.
 
