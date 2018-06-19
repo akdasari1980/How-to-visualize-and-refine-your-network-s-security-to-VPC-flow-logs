@@ -21,7 +21,7 @@ As illustrated in the preceding diagram, this is how the data flows in this mode
 
 >Make sure your are in US East (N. Virginia), which short name is us-east-1.
 
->Download Putty: IF you don’t already have the **PuTTy client/PuTTYgen** installed on your machine, you can download and then launch it from here:
+>Download Putty and PuTTYgen: IF you don’t already have the **PuTTy client/PuTTYgen** installed on your machine, you can download and then launch it from here:
 https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
 ## Lab tutorial
