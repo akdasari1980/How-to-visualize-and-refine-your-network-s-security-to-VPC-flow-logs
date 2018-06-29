@@ -152,9 +152,22 @@ https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 ![7.png](/images/7.png)
 
 
+### Connect to your instance (Linux/OSX only)
+
+>Note: This section is for Linux and Max OSX users only. If you are running Windows but have not yet connected to your instance, go back to previous step. If you have already connected to your instance, skip ahead to next step.
+
+5.1. To connect to your EC2 instance, run the following commands in Terminal:
+	
+	chmod 400  <path and name of pem>
+	ssh –i <path and name of pem> ec2-user@<public IP>
+
+* For **path and name of pem**, substitute the path/filename to the .pem file you downloaded.
+* For **public IP**, substitute the public IP address for your **Web Server** instance which you copied into a text editor earlier in the lab.
+
+
 ### Install and Setup into Amazon Linux instance
 
-5.1. 	Install NPM into Amazon Linux instance
+6.1. 	Install NPM into Amazon Linux instance
 
 	[ec2-user ~]$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 	[ec2-user ~]$ . ~/.nvm/nvm.sh
@@ -162,7 +175,7 @@ https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 	[ec2-user ~]$ command -v nvm
                   //you will see nvm as output, then it should install success
 
-5.2. 	Install GIT and Prepare to deploy lambda
+6.2. 	Install GIT and Prepare to deploy lambda
 
 	[ec2-user ~]$ sudo yum install git
 	[ec2-user ~]$ git clone https://github.com/awslabs/aws-vpc-flow-log-appender
@@ -178,7 +191,7 @@ https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 	Region : us-east-1
 	Format : json
 
-5.3. 	Deploy Lambda Functions and Create buckets
+6.3. 	Deploy Lambda Functions and Create buckets
 
 	[ec2-user ~]$ aws s3 mb s3://YOUR_BUCKET_NAME
 	[ec2-user ~]$ aws cloudformation package --template-file app-sam.yaml --s3-bucket YOUR_BUCKET_NAME --output-template-file app-sam-output.yaml
@@ -187,84 +200,84 @@ https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
 
 ### Set up Firehose
 
-6.1. 	In the AWS Management Console, choose **Kinesis** under Analytics.
+7.1. 	In the AWS Management Console, choose **Kinesis** under Analytics.
 
-6.2. 	Click **Get Started**, choose **Create delivery stream** on Deliver streaming data with Kinesis Firehose delivery streams.
+7.2. 	Click **Get Started**, choose **Create delivery stream** on Deliver streaming data with Kinesis Firehose delivery streams.
 
-6.3. 	For Delivery stream name, type **VPCFlowLogsToElasticSearch** (the name must match the default environment variable in the ingestion Lambda function). Choose **Next**.
+7.3. 	For Delivery stream name, type **VPCFlowLogsToElasticSearch** (the name must match the default environment variable in the ingestion Lambda function). Choose **Next**.
 
-6.4. 	For **Transform source records with Lambda**, choose **Enabled**.
+7.4. 	For **Transform source records with Lambda**, choose **Enabled**.
 
-6.5. 	Choose **vpc-flow-log-appender-dev-FlowLogDecoratorFunction-xxxxx** from the **Lambda function** drop-down list (make sure you select the Decorator function). Choose **Next**.
+7.5. 	Choose **vpc-flow-log-appender-dev-FlowLogDecoratorFunction-xxxxx** from the **Lambda function** drop-down list (make sure you select the Decorator function). Choose **Next**.
 
-6.6. 	Choose **Amazon Elasticsearch Service** from Destination.
+7.6. 	Choose **Amazon Elasticsearch Service** from Destination.
 
-6.7. 	Choose **es-flowlogs** from the Elasticsearch domain drop-down list. (The Amazon ES cluster configuration state must be Active for es-flowlogs to be available in the drop-down list.)
+7.7. 	Choose **es-flowlogs** from the Elasticsearch domain drop-down list. (The Amazon ES cluster configuration state must be Active for es-flowlogs to be available in the drop-down list.)
 
-6.8. 	For **Index**, type **cwl**.
+7.8. 	For **Index**, type **cwl**.
 
-6.9. 	Choose **Every day** from the Index rotation drop-down list.
+7.9. 	Choose **Every day** from the Index rotation drop-down list.
 
-6.10. 	For **Type**, type **log**.
+7.10. 	For **Type**, type **log**.
 
-6.11. 	For S3 Backup, choose **Failed Documents Only**.
+7.11. 	For S3 Backup, choose **Failed Documents Only**.
 
-6.12. 	For Backup S3 bucket, choose S3 bucket name from the drop-down list, or choose Create S3 bucket. Choose **Next**.
+7.12. 	For Backup S3 bucket, choose S3 bucket name from the drop-down list, or choose Create S3 bucket. Choose **Next**.
 
-6.13. 	Under **IAM role**, choose **Create new, or Choose**.
+7.13. 	Under **IAM role**, choose **Create new, or Choose**.
 
-6.14. 	Choose **Allow**. This takes you back to the Firehose Configuration.
+7.14. 	Choose **Allow**. This takes you back to the Firehose Configuration.
 
-6.15. 	Choose **Next**, and then choose **Create Delivery Stream**.
+7.15. 	Choose **Next**, and then choose **Create Delivery Stream**.
 
 ### Stream data to Firehose
 
-7.1. 	In the AWS Management Console, choose **CloudWatch** under Management Tools.
+8.1. 	In the AWS Management Console, choose **CloudWatch** under Management Tools.
 
-7.2. 	Choose **Logs** in the navigation pane, and select the check box next to **Flowlogs** under Log Groups.
+8.2. 	Choose **Logs** in the navigation pane, and select the check box next to **Flowlogs** under Log Groups.
 
-7.3. 	From the Actions menu, choose **Stream to AWS Lambda**. Choose **vpc-flow-log-appender-dev-FlowLogIngestionFunction-xxxxxxx** (select the Ingestion function).
+8.3. 	From the Actions menu, choose **Stream to AWS Lambda**. Choose **vpc-flow-log-appender-dev-FlowLogIngestionFunction-xxxxxxx** (select the Ingestion function).
  Choose **Next**.
 
-7.4. 	Choose **Amazon VPC Flow Logs** from the Log Format drop-down list.
+8.4. 	Choose **Amazon VPC Flow Logs** from the Log Format drop-down list.
 
 ![8.png](/images/8.png)
 
-7.5. 	Choose **Next**.
+8.5. 	Choose **Next**.
 
-7.6. 	Choose **Start Streaming**.
+8.6. 	Choose **Start Streaming**.
 
 Data is now flowing to your Amazon ES cluster, but be patient because it can take up to 30 minutes for the data to begin appearing in your Amazon ES cluster.
 
 ### Using the SGDashboard to analyze VPC network traffic
 
-8.1. 	In the AWS Management Console, click **Elasticsearch** Service under Analytics.
+9.1. 	In the AWS Management Console, click **Elasticsearch** Service under Analytics.
 
-8.2. 	Choose **es-flowlogs** under Elasticsearch domain name.
+9.2. 	Choose **es-flowlogs** under Elasticsearch domain name.
 
-8.3. 	Click the link next to **Kibana**, as shown in the following screenshot.
+9.3. 	Click the link next to **Kibana**, as shown in the following screenshot.
 
 ![9.png](/images/9.png)
 
 The first time you access Kibana, you will be asked to set the *defaultindex*. To set the *defaultindex* in the Amazon ES cluster:
 
-8.4. 	Set the Index name or pattern to **cwl-***.
+9.4. 	Set the Index name or pattern to **cwl-***.
 
 ![10.png](/images/10.png)
 
-8.5. 	For Time-field name, type **@timestamp**.
+9.5. 	For Time-field name, type **@timestamp**.
 
-8.6. 	Choose **Create**.
+9.6. 	Choose **Create**.
 
 Load the SGDashboard:
 
-8.7. 	Download this JSON file and save it to your computer. The file includes a dashboard and visualizations. Download Link: https://s3-us-west-2.amazonaws.com/aws-ecv-training/FlowLogDashboard.json
+9.7. 	Download this JSON file and save it to your computer. The file includes a dashboard and visualizations. Download Link: https://s3-us-west-2.amazonaws.com/aws-ecv-training/FlowLogDashboard.json
 
-8.8. 	In Kibana, choose **Management** in the navigation pane, choose **Saved Objects**, and then import the file you just downloaded.
+9.8. 	In Kibana, choose **Management** in the navigation pane, choose **Saved Objects**, and then import the file you just downloaded.
 
-8.9. 	Choose **Dashboard** and Open to **load the SGDashboard** you just imported. (You might have to press Enter in the top search box to have the dashboard load the first time.)
+9.9. 	Choose **Dashboard** and Open to **load the SGDashboard** you just imported. (You might have to press Enter in the top search box to have the dashboard load the first time.)
 
-8.10. 	The following screenshot shows the SGDashboard after it has loaded.
+9.10. 	The following screenshot shows the SGDashboard after it has loaded.
 
 ![11.png](/images/11.png)
 
